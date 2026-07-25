@@ -1,0 +1,545 @@
+--- CELL 0 (Markdown) ---
+# GROUP 16 - 13%
+
+members:
+
+Bembo, Natalie Marielle G.
+
+Fabregas, Mathematics Drew M.
+
+Ibanez, Kane
+
+Obar, David
+
+Sandoval, Roy Louis N.
+
+--- CELL 1 (Markdown) ---
+# 1.0 Abstract
+
+--- CELL 2 (Markdown) ---
+This research study aims to investigate the relationship between the integration of generative AI tools in academic workflows and its impact on student academic performance and mental well-being. Utilizing a dataset with over 50,000 student profiles, and through variables such as weekly AI hours usage, prompt engineering proficiency, and perceived AI dependency.  Researchers examine these variables and how they correlate with changes in Grade Point Average (GPA), skill retention, and burnout risk.
+
+--- CELL 3 (Markdown) ---
+Employing an Exploratory Data Analysis approach to examine the dynamics of AI adoption across different academic disciplines, year levels, and institutional policies. Findings indicate that while frequent AI usage is linked to distinct behavioral patterns, the impact on academic performance is significantly driven by prompt engineering efficiency and the prevailing institutional stance on AI. Furthermore, this research identifies a psychological tipping point where AI reliance transitions from a constructive academic tool to a strong source of anxiety and burnout.
+
+--- CELL 4 (Markdown) ---
+Keywords: Generative AI, Academic Performance, Student Well-being, Burnout Risk, Prompt Engineering, Undergraduate Education Analysis
+
+--- CELL 5 (Markdown) ---
+# 2.0 Dataset Description
+
+--- CELL 6 (Markdown) ---
+## 2.1 Description of the dataset
+
+--- CELL 7 (Markdown) ---
+The dataset is titled as "Impact of AI on students" and it was sourced from Kaggle. It contains various data on the effects of generative AI on students by tracking different attributes such as paid subscription status, weekly AI usage hours, and burnout risk.
+
+--- CELL 8 (Markdown) ---
+## 2.2 How the dataset was collected
+
+--- CELL 9 (Markdown) ---
+We inspected the original source file labeled as "ai_student_impact_dataset (1).csv", but there was no information regarding what specific data collection methodology was used, although it was hinted that stratified sampling was used since the sample count of each major was even across all of them. The dataset had 50,000 observations with zero missing values, which could suggest that it was either synthetically generated or heavily pre-processed.
+
+--- CELL 10 (Markdown) ---
+The lack of transparency is quite worrying, but we decided to proceed with the dataset anyway since it is widely used by the Kaggle community, as we saw there were 37 analytical models from different authors. Additionally, the dataset has a perfect Kaggle Usability score of 10.0 because of its high rating in completeness and compatibility. We assume that the data simulates realistic student metrics and is perhaps a heavily sanitized compilation from various institutions wherein the authors imputed data and perhaps exaggerated the data to reach the 50,000 observations.
+
+--- CELL 11 (Markdown) ---
+As stated earlier, the data is popular in the Kaggle community, so there were highly relevant and recent models with the oldest being a month old, and new analyses are being published frequently. This contributes to it having a 100% Kaggle Credibility rating based on source engagement, public notebooks, and update frequency, which increases our confidence that it is credible to be used for our current study.
+
+--- CELL 12 (Markdown) ---
+## 2.3 Potential implications of how the data was collected on the insights that will be generated
+
+--- CELL 13 (Markdown) ---
+* **Self-Reporting and Social Desirability Bias:** 
+Some variables, for example Perceived_AI_Dependency, Anxiety_Level_During_Exams, and the weekly hour estimates are self-reported. If a university has a strict rule set, like Institutional_Policy with an outright AI ban, students might report lower AI usage than they actually had, or describe their primary use case in a different way. This can create an artificial separation between AI use and GPA changes in those groups, even when the real relationship is stronger. It can feel like AI is harmless in those datasets but it’s more like the reporting changed.
+
+--- CELL 14 (Markdown) ---
+* **Construct Validity of Metrics:** 
+The Skill_Retention_Score works like an objective counterbalance to self-assessments. It aims to measure retained knowledge, so analysts can check whether heavy dependence on AI boosts Post_Semester_GPA while reducing retained understanding over the same period.
+
+--- CELL 15 (Markdown) ---
+* **Cross-Sectional vs. Longitudinal Limitations:** 
+Since the tracking runs for one semester only, the takeaways lean toward fast behavioral shifts, not deep, slow habit building. Like, a student with high Weekly_GenAI_Hours might show an immediate GPA uplift, however the way it gradually compounds, on student burnout and long-term academic growth, needs observations over multiple terms. Otherwise it feels sorta limited, because we do not actually see the longer rhythm.
+
+--- CELL 16 (Markdown) ---
+Because the dataset's specific origin is unknown and it was hinted that stratified sampling was used for the dataset, there is a high possibility that the insights that will be generated from this study will be generalized. The dataset has no description regarding what specific student population was targeted (such as where it was taken). This results in a decrease in the validity of our results, as different institutions may have different cultures or policies that may externally impact student behavior.
+
+--- CELL 17 (Markdown) ---
+Furthermore, if in the case that the dataset is fully synthetic, the findings may reflect the assumptions that were generated by the creation algorithm of the original author, such as, let's say, the author perceived an occasion and exaggerated its population, which may contrast with human trends if there is more sampling.
+
+--- CELL 18 (Markdown) ---
+## 2.4 Structure of the data
+
+--- CELL 19 (Markdown) ---
+Student Academic Profile
+* **Student_ID** (INT): Unique identifier
+* **Major_Category** (CATEGORICAL): STEM, Business, Humanities, Medical, Arts
+* **Years_of_Study** (CATEGORICAL): Freshman, Sophomore, Junior, Senior, Graduate
+* **Pre_Semester_GPA** (FLOAT): (1.00 - 4.00)
+* **Post_Semester_GPA** (FLOAT): (1.00 - 4.00)
+* **Skill_Retention_Score** (FLOAT): (0-100) how well students retain skills post-sem
+
+--- CELL 20 (Markdown) ---
+AI Usage Metrics
+* **Weekly_GenAI_Hours** (FLOAT): (0 - 40)
+* **Primary_Use_Case** (CATEGORICAL): Copywriting/Drafting, Summarizing_Reading, Debugging/Troubleshooting, Ideation, Direct_Answer_Generation
+* **Prompt_Engineering_Skill** (CATEGORICAL): Beginner, Intermediate, Advanced
+* **Tool_Diversity** (INT): AI tools used
+* **Paid_Subscription** (BOOLEAN): T/F
+* **Perceived_AI_Dependency** (INT): Scale 1 (low) to 10 (high)
+
+--- CELL 21 (Markdown) ---
+Student Well-Being
+* **Anxiety_Level_During_Exams** (INT): Scale 1 (minimal) to 10 (severe)
+* **Burnout_Risk_Level** (CATEGORICAL): Low, Medium, High
+
+--- CELL 22 (Markdown) ---
+Other
+* **Traditional_Study_Hours** (FLOAT): (1 - 36)
+* **Institutional_Policy** (CATEGORICAL): Allowed_With_Citation, Strictly_Ban, Actively_Encouraged
+
+--- CELL 23 (Markdown) ---
+# 3.0 Data Cleaning & Preprocessing
+
+--- CELL 24 (Markdown) ---
+Although the dataset claimed that it had perfect completeness, balanced distributions, and no pre-processing is required, we decided to do the checks anyway since its unverified methodology is a flag for us to check for quality. We used Python code with pandas so we can check for missing values, duplicate rows, inconsistent categorical encodings, and possible outliers. Lastly, we will do feature engineering to create a new column to find the difference of post and pre-semester GPAs. We also have categorical encoding and feature scaling, which will be applied at another time.
+
+--- CELL 25 (Markdown) ---
+## 3.1 Dataset Loading and Program Initialization
+
+--- CELL 26 (Markdown) ---
+This section is in charge of importing important libraries and reading the dataset for cleaning and processing later.
+
+--- CELL 28 (Markdown) ---
+## 3.2 Data Cleaning
+
+--- CELL 29 (Markdown) ---
+### A. Formatting Categorical Names and Data Types
+
+--- CELL 30 (Markdown) ---
+The first step is to ensure that all the variables were correctly typed and formatted. We checked each of the numerical columns to ensure that no strings were incorrectly mapped, such as finding the string "20" in the weekly Generative AI hours column which is supposed to take a float value. For the categorical columns, we stripped away any accidental whitespaces and standardized the spelling and capitalization by using the difflib library to ensure that the format is consistent across the dataset.
+
+--- CELL 31 (Code) ---
+# Check for consistent categorical names
+print("Checking For Consistent Categorical Names:\n")
+categoricals = []
+numericals = []
+
+for col in df.columns:
+    if pd.api.types.is_numeric_dtype(df[col]) and not pd.api.types.is_bool_dtype(df[col]): # if variable column is float
+        numericals.append(col)
+
+    elif pd.api.types.is_bool_dtype(df[col]): # if variable column is boolean
+        categoricals.append(col)
+
+    # catches both 'object' and 'string' data types
+    elif pd.api.types.is_object_dtype(df[col]) or pd.api.types.is_string_dtype(df[col]):
+        if not df[col].astype(str).str.isdigit().all(): # checks if column is categorical
+            categoricals.append(col)
+
+            df[col] = df[col].astype(str).str.strip() # fix whitespace
+            raw_counts = df[col].value_counts()
+
+            standard_mapping = {} # standardized the data values
+            for unique_val in raw_counts.index:
+                lowercase_version = unique_val.lower()
+                if lowercase_version not in standard_mapping:
+                    standard_mapping[lowercase_version] = unique_val
+
+            # Map values to their most frequent standard casing (e.g. stem to STEM)
+            df[col] = df[col].apply(lambda x: standard_mapping[x.lower()])
+
+            legitimate_categories = list(standard_mapping.values())
+
+            def fix_typos(value): # fix spelling (ste to STEM)
+                if value in legitimate_categories:
+                    return value
+                matches = difflib.get_close_matches(value, legitimate_categories, n=1, cutoff=0.5)
+                if matches:
+                    print(f"Fixed typo from {col}: Changed '{value}' to '{matches[0]}'")
+                    return matches[0]
+                return value
+
+            df[col] = df[col].apply(fix_typos)
+
+        else: # fix numeric variables ('1' to 1)
+            converted_series = pd.to_numeric(df[col], errors='coerce')
+            if not converted_series.isnull().all():
+                numericals.append(col)
+                df[col] = converted_series
+
+max_len = max(len(categoricals), len(numericals))
+
+print(f"{'Index':<6} | {'Categorical Variables':<26} | {'Numerical Variables':<26}")
+print("-" * 65)
+for i in range(max_len):
+    cat_val = categoricals[i] if i < len(categoricals) else ""
+    num_val = numericals[i] if i < len(numericals) else ""
+    print(f"{i:<6} | {cat_val:<26} | {num_val:<26}")
+
+print("Successfully updated both categorical inconsistencies and numeric type mismatches across all variables\n")
+
+--- CELL 32 (Markdown) ---
+### B. Duplicate Record Check
+
+--- CELL 33 (Markdown) ---
+We checked the dataset for duplicate row entries based on the unique Student_ID, but the result showed that there were no duplicate entries. This was expected anyway, since we know the student IDs simply range from 1 to 50,000 and we were not given actual names.
+
+--- CELL 35 (Markdown) ---
+### C. Missing Values Analysis
+
+--- CELL 36 (Markdown) ---
+We used pandas to scan every column for null or missing values, and just as the Kaggle documentation advertised, the dataset is perfectly complete with no missing values.
+
+--- CELL 38 (Markdown) ---
+### D. Handling Outliers
+
+--- CELL 39 (Markdown) ---
+To detect outliers, we used two methods. The first method was establishing logical "hard limits" for human behavior. Since a week has 168 hours, we capped Weekly_GenAI_Hours and Traditional_Study_Hours to a max of 126 hours (even accounting for sleep, I believe this is too high since reaching this requires being on AI 24/7). We also limited Tool_Diversity and Perceived_AI_Dependency to a maximum of 10. For the second method, applied to academic variables, we used the IQR to identify extremes beyond 1.5x the IQR. Ultimately, no outliers were found exceeding these boundaries.
+
+--- CELL 41 (Markdown) ---
+## 3.3 Data Pre-processing
+
+--- CELL 42 (Markdown) ---
+This section focuses on reshaping and transforming variables into clean data for efficient processing. We used three common methods of data pre-processing. Since the second and third methods are for modeling and algorithms we will not be using them just yet.
+
+--- CELL 43 (Markdown) ---
+### A. Feature Engineering
+
+--- CELL 44 (Markdown) ---
+This method focuses on exposing hidden patterns. Since Student_ID can't be used for data modeling , we will drop it. We will also make a new column which is GPA change (positive means better grade and negative means lower grade) to gather new insights and help solve our EDAs and more importantly, our research question.
+
+--- CELL 46 (Markdown) ---
+# 4.0 Research Question & Exploratory Data Analysis
+
+--- CELL 47 (Markdown) ---
+The rapid rise and popularity of AI in the 2020s sparked the group's interest, as we were curious about its true impact on university students. We have been to orientations and talks where AI is promoted as a learning assistant, but there were also discussions and warnings about over-reliance decreasing student creativity and degrading problem-solving skills. To investigate these claims, we found a dataset from a trusted website like Kaggle to study the relationship between AI and students.
+
+--- CELL 48 (Markdown) ---
+We initially considered highly specific inquiries, such as how AI might be a better teacher, or if it is mostly used to do simple tasks. We also hypothesized that using AI could increase one's skill in prompt engineering, since students gain an understanding of strict parameters to control outputs. This might increase a student's flexibility by allowing them to consider different variables and think further ahead. Additionally, we thought that over-reliance might result in thinking stagnation.
+
+--- CELL 49 (Markdown) ---
+We checked the dataset's variables and found that we could track academic metrics, such as GPA, and psychological indicators, such as anxiety levels. The dataset made us figure out that we could broaden our scope to study both the academic and mental health impacts of AI. This led us to our finalized general research question, which can be found below.
+
+--- CELL 50 (Markdown) ---
+## 4.1 Main Research Question:
+
+--- CELL 51 (Markdown) ---
+To what extent does a student's reliance on generative AI tools significantly correlate with changes in academic performance and mental well-being?
+
+--- CELL 52 (Markdown) ---
+## 4.2 EDA Questions
+
+--- CELL 53 (Markdown) ---
+To explore our research question and gather evidence, we created four Exploratory Data Analysis questions. The visualizations and statistical summaries generated from these analyses will serve as evidence or supporting information so that we may form a conclusion on whether AI actually has an effect on student academics or well-being.
+
+--- CELL 54 (Markdown) ---
+### A. Does the distribution of academic burnout risk vary significantly across different academic major categories?
+
+--- CELL 55 (Markdown) ---
+For this analysis, a 100% Stacked Bar Chart is utilized to visualize the proportional distribution of burnout risk levels (Low, Medium, High) across each academic major.
+
+--- CELL 57 (Markdown) ---
+Observation: Among the various Academic Major Categories, students in STEM exhibit the highest risk of burnout. This is empirically evidenced by STEM having the highest percentage of students in the 'High' burnout risk category and the lowest percentage in the 'Low' risk category. Meanwhile, the proportion of students facing a 'Medium' burnout risk remains relatively consistent across all majors.
+
+--- CELL 58 (Markdown) ---
+### B. Is there a significant correlation between a student's weekly generative AI hours and their academic performance?
+
+--- CELL 59 (Markdown) ---
+We used a Hexagonal Binning plot to display the density of our data points. We used this instead of a scatter plot because a scatter plot would just look like a filled color due to the sheer amount of observations (overplotting).
+
+--- CELL 61 (Markdown) ---
+Observation: The hexbin plot lacks a clear directional trend, showing no distinct linear relationship between the two variables. Instead, the data forms a highly dense cluster on the left side of the graph, representing the high volume of students with lower AI usage hours. While this dense grouping might initially suggest that lower AI usage is associated with an increased GPA, the absence of a distinct diagonal distribution—paired with a near-zero correlation coefficient—indicates that there is practically no linear correlation between weekly generative AI hours and changes in academic performance.
+
+--- CELL 62 (Markdown) ---
+### C. Is there a correlation between the institutional policy on AI and the anxiety level of students?
+
+--- CELL 63 (Markdown) ---
+To investigate this question, we first visualize the distribution of exam anxiety scores across the three different institutional policies (Allowed_With_Citation, Strictly_Ban, Actively_Encouraged) using a box plot.
+
+--- CELL 65 (Markdown) ---
+Observation:  Based on the visual distribution, students under a strict AI ban exhibit noticeably higher exam anxiety levels. In contrast, the distributions for the "Allowed with Citation" and "Actively Encouraged" policies appear nearly identical, suggesting little to no difference in anxiety between the two. Overall, students in environments that permit AI usage experience lower exam anxiety compared to those facing strict bans.
+
+--- CELL 66 (Markdown) ---
+### D. How does prompt engineering proficiency vary across different years of study? Specifically, do senior students exhibit a higher distribution of advanced prompt engineering skills compared to freshmen?
+
+--- CELL 67 (Markdown) ---
+For this analysis, a Stacked Bar Chart will be utilized to observe the distribution of prompt engineering skills (Beginner, Intermediate, Advanced) across each academic year. The primary goal is to determine if advanced prompt engineering proficiency naturally correlates with higher academic year levels due to increased experience.
+
+--- CELL 69 (Markdown) ---
+Observations: Based solely on the visual graph, the distribution appears so perfectly uniform that it raises suspicions of being synthetically generated. However, analyzing the numerical table reveals very slight, natural variations across each academic year. Considering this, we can reasonably conclude that an increased year of study does not equate to higher prompt engineering proficiency. Instead, these skills remain evenly distributed among students, regardless of their academic seniority.
+
+--- CELL 70 (Markdown) ---
+### E. How does a student's perceived AI dependency impact their overall skill retention?
+
+--- CELL 71 (Markdown) ---
+To investigate this, we will use a Box Plot to visualize the distribution of skill retention scores across different levels of perceived AI dependency (Low, Medium, High).
+
+--- CELL 73 (Markdown) ---
+Observation: While the overall trend and negative correlation coefficient indicate that higher AI dependency generally results in lower skill retention, the graph reveals a crucial nuance. An AI dependency score of 3 actually exhibits a slightly higher median retention score than a 1. This suggests the relationship isn't perfectly linear; using AI moderately as an assistant may benefit skill retention, whereas heavy over-reliance ultimately degrades it.
+
+--- CELL 74 (Markdown) ---
+# 5.0 Data Mining
+
+--- CELL 75 (Markdown) ---
+To further explore the trends within the dataset, the group performed Data Mining. These Data Mining processes are based on the established Exploratory Data Analysis questions, uncovering even more patterns that may not have been apparent to the group. Much like the statistical tests, it seeks to present a clearer and more nuanced understanding of the dataset.
+
+--- CELL 76 (Markdown) ---
+## 5.1 Data Pre-processing for Association Rule Mining
+
+--- CELL 77 (Markdown) ---
+While preprocessing techniques have already been done in section 3.3, for procedures such as Association Rule Mining, the group performed **Binning** (using numpy) in order to transform variables with continuous numerical values into categorical values. This is necessary as Association Rule Mining algorithms such as **Apriori** cannot operate on continuous values.
+
+--- CELL 78 (Markdown) ---
+The variables that underwent binning were GPA_Change, SKill_Retention_Score, Anxiety_Level_During_Exams and Weekly_GenAI_Hours. These variables, which originally represented float or integer values, now hold categories. The pandas function **pd.cut()** was used for this operation.
+
+--- CELL 80 (Markdown) ---
+After binning, the variables were isolated into a separate subset. This subset then underwent Boolean transformation in compliance with the requirements of association rule mining algorithms like Apriori:
+
+--- CELL 81 (Code - Section 5 related) ---
+# newly-binned variables + categorical variables for mining
+assoc_rule_features = [
+    'Major_Category', 'Year_of_Study', 'Primary_Use_Case', 
+    'Prompt_Engineering_Skill', 'Paid_Subscription', 
+    'Institutional_Policy', 'Burnout_Risk_Level',
+    'GPA_Change_Binned', 'Weekly_GenAI_Hours_Binned', 
+    'Traditional_Study_Hours_Binned', 'Skill_Retention_Score_Binned', 
+    'Anxiety_Level_Binned', 'Tool_Diversity_Binned', 'AI_Dependency_Binned'
+]
+
+# subset to compile variables above
+assoc_rule_subset = data_mining_df[assoc_rule_features]
+
+# boolean transformation for association rule mining
+boolean_matrix = pd.get_dummies(assoc_rule_subset, dtype=bool)
+
+print("Final matrix after boolean transformation:", boolean_matrix.shape)
+
+--- CELL 82 (Markdown) ---
+## 5.2 Apriori Algorithm (Association Rule Mining)
+
+--- CELL 83 (Markdown) ---
+Apriori Algorithm, a technique for association rule mining, was used to explore patterns. Since this algorithm finds frequent itemsets first, the group set a 1% minimum support due to the size of the dataset (50,000). Then when determining the actual rules, the group determined a 50% minimum confidence would be practical. The library **mlxtend** was used to construct the Apriori algorithm.
+
+--- CELL 84 (Code - Section 5 related) ---
+from mlxtend.frequent_patterns import apriori, association_rules
+
+# frequent itemsets with 1% min. support
+frequent_itemsets = apriori(boolean_matrix, min_support=0.01, use_colnames=True)
+
+# association rule generation with min. confidence at 50%
+rules = association_rules(frequent_itemsets, metric="confidence", min_threshold=0.50)
+
+# rules sorted by "lift". if lift > 1, it indicates positive relationship between antecedent and consequent 
+# lift = 1 and lift < 1 indicate independence and negative relationship respectively
+rules = rules.sort_values(by='lift', ascending=False)
+
+# top 10 rules sorted by lift
+print("Association Rules:")
+display(rules[['antecedents', 'consequents', 'support', 'confidence', 'lift']].head(10))
+
+--- CELL 85 (Markdown) ---
+Below is an expanded version to see the full antecedent and consequent columns of the top 10 association rules:
+
+--- CELL 86 (Code - Section 5 related) ---
+pd.set_option('display.max_colwidth', None)
+print("Association Rules (Expanded):")
+display(rules[['antecedents', 'consequents', 'support', 'confidence', 'lift']].head(10))
+
+--- CELL 87 (Markdown) ---
+From these top association rules, the most striking observation is that the combination of Heavy Weekly Generative AI Usage and the primary use of it for Direct Answer Generation actually correlates to High Burnout Risk and a Decrease in GPA with strong positive lift at 15.74. This provides insight to our second EDA question which seeks to determine if Weekly Generative AI Usage correlates to Academic Performace.
+
+The top association rules involving Strict Institutional Ban on AI also show correlation with High Anxiety Levels, providing a good insight to the third EDA question on the relationship between Institutional AI Policy and Anxiety Levels.
+
+--- CELL 88 (Markdown) ---
+# 6.0 Statistical Inference
+
+--- CELL 89 (Markdown) ---
+This section contains the statistical hypothesis testing to support our exploratory data analysis.
+
+--- CELL 90 (Markdown) ---
+### A. Does the distribution of academic burnout risk vary significantly across different academic major categories?
+
+--- CELL 91 (Markdown) ---
+Statistical Method: Chi-Square Test of Independence 
+
+Significance Level: $\alpha = 0.05$
+
+--- CELL 92 (Markdown) ---
+**Hypotheses:**
+*   **$H_0$ (Null):** There is no significant difference in burnout risk across different academic major categories.
+*   **$H_a$ (Alternative):** There is a significant difference in burnout risk across different academic major categories.
+
+--- CELL 93 (Markdown) ---
+Data Pre-processing and Justification: We used the original dataset as it was confirmed to be clean after numerous tests. The Chi-Square test was chosen because it is specifically designed for evaluating relationships between categorical data, which perfectly fits both our Academic Major and Burnout Risk variables. Furthermore, because of our massive sample size, we easily meet the test's requirement that every category has a high frequency of data points, allowing for extremely precise and reliable p-values.
+
+--- CELL 95 (Markdown) ---
+Important Values: The test yielded a Chi-Square Statistic of 376.27 and an infinitesimally small p-value of 2.22e-76.
+
+--- CELL 96 (Markdown) ---
+Conclusion: Because the p-value is astronomically lower than our 0.05 significance level, we strongly reject the Null Hypothesis. This mathematically proves the observation we made in EDA A. It was not random chance; the specific major a student is in genuinely affects their likelihood of experiencing high academic burnout. We therefore conclude that there is a significant difference in burnout risk across different academic major categories.
+
+--- CELL 97 (Markdown) ---
+### B. Is there a significant correlation between a student's weekly generative AI hours and their academic performance?
+
+--- CELL 98 (Markdown) ---
+Statistical Method: Pearson Correlation Coefficient 
+
+Significance Level: $\alpha = 0.05$
+
+--- CELL 99 (Markdown) ---
+**Hypotheses:**
+*   **$H_0$ (Null):** There is no linear correlation between a student's weekly generative AI hours and their GPA change.
+*   **$H_a$ (Alternative):** There is a significant linear correlation between a student's weekly generative AI hours and their GPA change.
+
+--- CELL 100 (Markdown) ---
+Data Pre-processing and Justification: For this test, we used the `GPA_Change` feature generated during our pre-processing phase (Post-Semester GPA minus Pre-Semester GPA). The Pearson correlation test was utilized since it is the optimal statistical method for evaluating the linear relationship between two continuous numerical variables. Additionally, our massive sample size allows us to apply the Central Limit Theorem, which safely satisfies the normality assumption, making the test robust and the results reliable.
+
+--- CELL 102 (Markdown) ---
+Important Values: The test yielded a Pearson Correlation Coefficient (r) of -0.0465 and a p-value of 2.52e-25.
+
+--- CELL 103 (Markdown) ---
+Conclusion: Although this extremely low p-value suggests a statistically significant correlation (p < 0.05), this is purely a product of our massive sample size making the statistical test overly sensitive. An r-value of -0.0465 indicates a very weak negative relationship that is practically negligible (essentially 0). Therefore, we accept the Null Hypothesis and conclude there is no linear correlation between weekly GenAI hours and GPA change.
+
+--- CELL 104 (Markdown) ---
+### C. Is there a correlation between the institutional policy on AI and the anxiety level of students?
+
+--- CELL 105 (Markdown) ---
+Statistical Method: One-Way ANOVA (Analysis of Variance) 
+
+Significance Level: $\alpha = 0.05$
+
+--- CELL 106 (Markdown) ---
+**Hypotheses:**
+*   **$H_0$ (Null):** There is no significant difference in mean exam anxiety levels across the different institutional AI policies.
+*   **$H_a$ (Alternative):** At least one institutional AI policy has a significantly different mean exam anxiety level.
+
+--- CELL 107 (Markdown) ---
+Data Pre-processing and Justification: We used the original dataset for this test, isolating the categorical `Institutional_Policy` and the continuous `Anxiety_Level_During_Exams`. A One-Way ANOVA was chosen because it is the standard statistical method for comparing the means of three or more independent groups. ANOVA assumes that the data is normally distributed and that the variances among groups are equal. Given our enormous sample size, the Central Limit Theorem satisfies the normality assumption, and ANOVA remains highly robust, making it the perfect test for these variables.
+
+--- CELL 109 (Markdown) ---
+Important Values: The test yielded an ANOVA F-statistic of 511.79 and an astronomically low p-value of 9.46e-221.
+
+--- CELL 110 (Markdown) ---
+Conclusion: Because the p-value is practically zero and falls far below our 0.05 significance level, we strongly reject the Null Hypothesis. This mathematically proves our visual observation from EDA C. that a strict ban creates a significantly higher level of exam anxiety compared to policies that allow or encourage AI usage. We can therfore conclude that At least one institutional AI policy has a significantly different mean exam anxiety level.
+
+--- CELL 111 (Markdown) ---
+Post-Hoc Analysis Justification (Tukey vs. Bonferroni): While the ANOVA test successfully indicated a statistically significant difference in anxiety levels across the institutional policies, it does not specify where the exact differences lie. To find this, a post-hoc test was required. We initially considered the Bonferroni correction as it was discussed in class. However, because Bonferroni is known to be overly conservative (which drastically reduces statistical power), we opted for Tukey's Honest Significant Difference (HSD) test instead. Tukey's HSD is much better suited for this occasion as it provides a superior balance of statistical power while strictly controlling the error rate when comparing all possible pairs of categorical means.
+
+--- CELL 113 (Markdown) ---
+Important Values: Strict_Ban comparisons have both relatively high meandiff values.
+
+--- CELL 114 (Markdown) ---
+Conclusion: The ANOVA test confirms a statistically significant difference in anxiety levels among the policy groups (p < 0.05). Furthermore, the Tukey Post-Hoc test reveals that students under a "Strict Ban" experience significantly higher anxiety levels compared to those in "Actively Encouraged" or "Allowed with Citation" environments. Conversely, there is no statistically significant difference in anxiety between the "Actively Encouraged" and "Allowed with Citation" policies, as their outcomes are nearly identical.
+
+--- CELL 115 (Markdown) ---
+### D. How does prompt engineering proficiency vary across different years of study? Specifically, do senior students exhibit a higher distribution of advanced prompt engineering skills compared to freshmen?
+
+--- CELL 116 (Markdown) ---
+Statistical Method: Chi-Square Test of Independence 
+
+Significance Level: $\alpha = 0.05$
+
+--- CELL 117 (Markdown) ---
+**Hypotheses:**
+*   **$H_0$ (Null):** There is no significant relationship between a student's academic year of study and their prompt engineering proficiency.
+*   **$H_a$ (Alternative):** There is a significant relationship between a student's academic year of study and their prompt engineering proficiency.
+
+--- CELL 118 (Markdown) ---
+Data Pre-processing and Justification: We isolated the categorical variables `Year_of_Study` and `Prompt_Engineering_Skill` from the original dataset. The Chi-Square Test of Independence was chosen because it is specifically designed for evaluating relationships between categorical data, which perfectly fits both of our variables. Similar to EDA A, our massive sample size ensures a high frequency of data points for each category, yielding highly precise and reliable p-values.
+
+--- CELL 120 (Markdown) ---
+Important Values: The test yielded a Chi-Square Statistic of 6.2634 and a high p-value of 0.6178 (same as 6.1776e-01).
+
+--- CELL 121 (Markdown) ---
+Conclusion: Because the p-value (0.6178) is significantly greater than our 0.05 significance level, we fail to reject the Null Hypothesis. This mathematically proves the visual observation we made in EDA D. that the distribution of skills is remarkably uniform across all years. This strongly supports our earlier assumption that the prompt engineering skills of students are relatively evenly distributed across the different academic years. We therefore conclude that there is no significant relationship between a student's academic year of study and their prompt engineering proficiency.
+
+--- CELL 122 (Markdown) ---
+### E. How does a student's perceived AI dependency impact their overall skill retention?
+
+--- CELL 123 (Markdown) ---
+Statistical Method: Pearson Correlation Coefficient
+
+Significance Level: $\alpha = 0.05$
+
+--- CELL 124 (Markdown) ---
+**Hypotheses:**
+*   **$H_0$ (Null):** There is no linear correlation between a student's perceived AI dependency and their skill retention score.
+*   **$H_a$ (Alternative):** There is a significant linear correlation between a student's perceived AI dependency and their skill retention score.
+
+--- CELL 125 (Markdown) ---
+**Data Pre-processing & Justification:** 
+We isolated `Perceived_AI_Dependency` and `Skill_Retention_Score` from the original dataset. The Pearson correlation test was utilized here just likein EDA B. since it is the optimal statistical method for evaluating the linear relationship between two continuous numerical variables. Additionally, our massive sample size allows us to apply the Central Limit Theorem, which safely satisfies the normality assumption, making the test robust and the results reliable.
+
+--- CELL 127 (Markdown) ---
+Important Values: The test yielded a Pearson Correlation Coefficient (r) of -0.0843 and a p-value of 1.4137e-79
+
+--- CELL 128 (Markdown) ---
+Conclusion: Because the p-value is less than 0.05, we reject the Null Hypothesis. The mathematical test confirms our observation that there is a statistically significant negative correlation. As a student's reliance on generative AI increases, their skill retention score decreases. Although the correlation coefficient is weak due to other real-world factors affecting students, the massive sample size proves that this relationship is not utterly random. We therefore conclude that there is a significant linear correlation between a student's perceived AI dependency and their skill retention score.
+
+--- CELL 129 (Markdown) ---
+# 7.0 Summary, Conclusions, and Recommendations
+
+--- CELL 130 (Markdown) ---
+## 7.1 Summary of Findings
+
+--- CELL 131 (Markdown) ---
+### A. STEM majors experience significantly higher burnout risk than other majors.
+
+--- CELL 132 (Markdown) ---
+STEM students will likely suffer more burnout because their core subjects are vastly more computation-heavy and difficult compared to other academic majors.
+
+--- CELL 133 (Markdown) ---
+### B. There is no direct linear correlation between raw weekly AI hours and GPA change.
+
+--- CELL 134 (Markdown) ---
+Having more or less weekly AI hours does generally not affect GPA change as their are other factors that could change the GPA drastically such as prompt efficiency or the AI's capability to give correct answers.
+
+--- CELL 135 (Markdown) ---
+### C. Institutions that strictly ban AI cause significantly higher exam anxiety.
+
+--- CELL 136 (Markdown) ---
+Students that are under strict AI bans likely experience high exam anxiety due to the fear of harsh academic punishments and the fear of having no AI assistant when taking exams.
+
+--- CELL 137 (Markdown) ---
+### D.  Heavy reliance on AI degrades skill retention, though moderate use is beneficial.
+
+--- CELL 138 (Markdown) ---
+Heavy reliance on AI oftens lead to students no longer learning as AI answers all the questiosn which leads to no growth. However, moderate use could speed up the process of learning instead such as how AI provides analogies or points out important facts.
+
+--- CELL 139 (Markdown) ---
+### E. Prompt engineering skills are perfectly uniform across all academic years, remaining completely stagnant regardless of student seniority.
+
+--- CELL 140 (Markdown) ---
+The stagnation of prompt engineering skills might occur because senior-level lectures become too complex for AI to be useful, preventing further skill development.
+
+--- CELL 141 (Markdown) ---
+## 7.2 Conclusion
+
+--- CELL 142 (Markdown) ---
+
+
+--- CELL 143 (Markdown) ---
+# References
+
+--- CELL 144 (Markdown) ---
+Dataset: Impact of AI on Students Dataset, Available at https://www.kaggle.com/datasets/laveshjadon/ai-impact-on-students/data
+
+ANOVA post testing: Tukey vs. Bonferroni vs. Scheffe: Which Test Should You Use?, Link: https://www.statology.org/tukey-vs-bonferroni-vs-scheffe/
+
+--- CELL 145 (Markdown) ---
+# Disclosures
+
+--- CELL 146 (Markdown) ---
+**Statement: During the preparation of this work, the author(s) used GEMINI for the following purposes:**
+
+--- CELL 147 (Markdown) ---
+1. How to fix installment issue by using "!pip install (library here)" inside a code cell to install necessary libraries
+
+2. Why does the category check work on google Collab but not in Visual Studio? We found out that apparently pandoras have different versions (we likely have the more recent one), Google Collab treat categories as objects while in VS studio we need to treate them different such as string and boolean.
+
+3. How to graph Hexbin via Hexplot
+
+--- CELL 148 (Markdown) ---
+**After using this tool/service, the author(s) reviewed and edited the content as needed and take(s) full responsibility for the content of the publication.**
+
